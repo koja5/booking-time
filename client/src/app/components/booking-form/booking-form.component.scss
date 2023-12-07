@@ -1,0 +1,56 @@
+.progressbar-list::before {
+  content: " ";
+  background-color: rgb(155, 155, 155);
+  border: 10px solid #fff;
+  border-radius: 50%;
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin: 9px auto;
+  box-shadow: 1px 1px 3px #606060;
+  transition: all;
+}
+.progressbar-list::after {
+  content: "";
+  background-color: rgb(155, 155, 155);
+  padding: 0px 0px;
+  position: absolute;
+  top: 14px;
+  left: -50%;
+  width: 100%;
+  height: 2px;
+  margin: 9px auto;
+  z-index: -1;
+  transition: all 0.8s;
+}
+.progressbar-list.active::after {
+  background-color: var(--primary);
+}
+.progressbar-list:first-child::after {
+  content: none;
+}
+.progressbar-list.active::before {
+  font-family: "Font Awesome 5 free";
+  content: "\f00c";
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  padding: 6px;
+  background-color: var(--primary);
+  border: 1px solid var(--primary);
+  box-shadow: 0 0 0 7.5px rgb(118 60 176 / 11%);
+}
+.progressbar-list {
+  color: #6f787d;
+}
+.active {
+  color: #000;
+}
+
+.not-allow {
+  width: 800px;
+}
+// .additional-info-container {
+//   width: 220px;
+//   margin-left: 20px;
+// }

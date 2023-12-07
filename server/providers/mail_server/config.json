@@ -1,0 +1,87 @@
+{
+    "activate_mail": {
+        "template": "activate_mail.hjs",
+        "subject": "Activate your account",
+        "fields": {
+            "title": "Please activate your account!",
+            "text": "You have successfully created an account, please use the link below to confirm your email and after that you can successfully log in!",
+            "buttonText": "Activate your account"
+        }
+    },
+    "activate_mail_for_club": {
+        "template": "activate_mail.hjs",
+        "subject": "Activate your account",
+        "fields": {
+            "title": "Please activate your account!",
+            "text": "You have successfully created an account, please use the link below to confirm your email and after that, your account will be additionally checked by an administrator! Reson for this is because you created CLUB account, which has some free options on platform, so we need to be sure that you data is really correct.",
+            "buttonText": "Activate your account"
+        }
+    },
+    "send_request_for_new_created_club_account": {
+        "template": "send_request_for_new_created_club_account.hjs",
+        "subject": "Created new Club account!",
+        "email": "clinicnode@gmail.com",
+        "fields": {
+            "title": "Created new Club account!",
+            "text": "Please check info of new created team account. Information about club you can see below!",
+            "greeting": "Hi",
+            "buttonText": "Activate club account"
+        }
+    },
+    "info_approved_club_account_from_admin": {
+        "template": "info_approved_club_account_from_admin.hjs",
+        "subject": "Your club account is activated!",
+        "fields": {
+            "title": "Your club account is activated!",
+            "text": "We would like to inform you that your club account is activated now, so you can start with create events for your club!",
+            "greeting": "Hi {firstname}"
+        }
+    },
+    "info_about_changed_user_data": {
+        "template": "info_about_changed_user_data.hjs",
+        "subject": "Your information has been changed!",
+        "fields": {
+            "title": "Your information has been changed!",
+            "text": "We would like to inform you that the information on your account has been changed. This may mean that your access to the platform or some of the other data has been changed.",
+            "greeting": "Hi {firstname}"
+        }
+    },
+    "reset_password": {
+        "template": "reset_password.hjs",
+        "subject": "Password recovery request",
+        "fields": {
+            "title": "Password recovery request",
+            "text": "You have requested a password reset. By clicking on the link below, you will receive a form for entering a new password for your profile!",
+            "buttonText": "Reset password"
+        }
+    },
+    "send_request_for_free_ad": {
+        "template": "send_request_for_free_ad.hjs",
+        "subject": "Received new request for free ad",
+        "email": "clinicnode@gmail.com",
+        "fields": {
+            "title": "New request for free ad",
+            "text": "You received a new request for free ad. Information about ad you can see below.",
+            "greeting": "Hi",
+            "buttonText": "Preview requested ad"
+        }
+    },
+    "info_for_active_free_ad": {
+        "template": "info_for_active_free_ad.hjs",
+        "subject": "Free relationship request",
+        "fields": {
+            "title": "Free relationship request",
+            "text": "Your request for a free ad on the www.city-info.at portal has been approved and is valid for the next 2 weeks.",
+            "greeting": "Hi {firstname}"
+        }
+    },
+    "info_for_deny_free_ad": {
+        "template": "info_for_deny_free_ad.hjs",
+        "subject": "Deny request for your ad",
+        "fields": {
+            "title": "Deny request for your ad",
+            "text": "Your request for a free ad on the www.city-info.at portal has been deny. We can't approve this type of ad. You have not met the requirements for approval of a free ad.",
+            "greeting": "Hi {firstname}"
+        }
+    }
+}

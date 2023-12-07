@@ -1,0 +1,136 @@
+@import "bootstrap/scss/bootstrap";
+
+@import "./assets/styles/material/individual-scss/inputs/input.scss";
+
+@import "../node_modules/@syncfusion/ej2-base/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-buttons/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-inputs/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-popups/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-lists/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-splitbuttons/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-calendars/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-angular-calendars/styles/material.css";
+
+:root {
+  /*--primary: #1976d2;*/
+  --primary: #0f1d2b;
+  --gray: gray;
+}
+
+@media screen and (max-width: 768px) {
+  .appointment-popup {
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+    overflow: auto;
+    height: calc(100% - 6.4rem);
+    min-height: auto;
+    max-height: 100%;
+  }
+
+  .appointment-calendar {
+    padding: 0;
+  }
+}
+
+body {
+  background: #f2f4f7;
+  color: #28333b;
+  font-family: "DM Sans", sans-serif;
+  font-size: 1em;
+}
+
+.button {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  padding: 15px 25px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.5s ease;
+  background: transparent;
+  border: 2px solid transparent;
+}
+.button.button-link {
+  padding: 0 0 2px;
+  margin: 0 25px;
+  border-bottom: 2px solid rgba(64, 179, 255, 0.5);
+  border-radius: 0;
+  opacity: 0.75;
+}
+.button.button-link:hover {
+  border-bottom: 2px solid var(--primary);
+  opacity: 1;
+}
+.button.button-primary {
+  background: var(--primary);
+  color: #fff;
+}
+.button.button-primary:hover {
+  background: var(--primary);
+}
+.button.button-secondary {
+  background: transparent;
+  border-color: #e8ebed;
+  color: #8a959c;
+}
+.button.button-secondary:hover {
+  border-color: var(--primary);
+}
+
+.button-steps {
+  text-align: end;
+  padding-top: 1rem;
+}
+
+.button-steps .button-secondary {
+  margin-right: 10px;
+}
+
+.appointment-popup {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  max-width: 100%;
+  background: white;
+  border-radius: 1rem;
+  z-index: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.appointment-calendar {
+  width: 100%;
+  padding: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.ElementsApp {
+  font-size: 17px !important;
+}
+
+/* SYNCFUSION */
+.e-outline.e-input-group {
+  margin-bottom: 10px;
+}
+
+.e-radio:checked + label::before {
+  border-color: var(--primary) !important;
+}
+
+.e-radio:checked + label::after {
+  background-color: var(--primary) !important;
+  color: var(--primary) !important;
+}
+
+.e-checkbox-wrapper .e-frame.e-check,
+.e-css.e-checkbox-wrapper .e-frame.e-check {
+  background: var(--primary) !important;
+}
+
+.e-dialog .e-dlg-header-content .e-btn.e-dlg-closeicon-btn {
+  display: flex !important;
+}
+
+/* SYNCFUSION END */

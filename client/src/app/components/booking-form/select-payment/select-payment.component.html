@@ -1,0 +1,94 @@
+<div class="text-center mb-4">
+    <h3>{{language.paymentTitle}}</h3>
+    <h6>{{language.paymentText}}</h6>
+</div>
+<!-- <div class="d-flex select-payment justify-content-center">
+    <div>
+        <img class="credit-card-icon" src="./assets/images/icons/credit-card-payment.png">
+        <h3>Pay online</h3>
+    </div>
+    <div>
+        <img class="give-money-icon" src="./assets/images/icons/give-money.png">
+        <h3>Pay online</h3>
+    </div>
+</div> -->
+
+<article class="card border-0">
+    <div class="container">
+        <div class="card-body">
+            <div class="payment-type">
+                <div class="types flex justify-content-around">
+                    <div *ngIf="stripeId" class="type {{select === 'online' ? 'selected' : ''}}"
+                        (click)="select = 'online'; payOnlineAdditionalInfo()">
+                        <div class="logo">
+                            <i class="far fa-credit-card"></i>
+                        </div>
+                        <div class="text">
+                            <p>{{language.paymentPayWithCard}}</p>
+                        </div>
+                    </div>
+
+                    <div *ngIf="payInClinic" class="type {{select === 'in-clinic' ? 'selected' : ''}}"
+                        (click)="select = 'in-clinic'; payInClinicAdditionalInfo()">
+                        <div class="logo">
+                            <i class="fa-solid fa-hand-holding-dollar"></i>
+                        </div>
+                        <div class="text">
+                            <p>{{language.paymentPayInClinic}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="select === 'online'&&stripeId">
+                <h5 class="text-center">{{language.paymentFillCreditCardInfo}}</h5>
+
+                <div *ngIf="bookingSettings&&amount" class="mt-4">
+                    <div *ngIf="bookingSettings.part_of_full_amount">
+                        <ejs-radiobutton name="amount"
+                            label="{{language.paymentPartOfAmount}} {{bookingSettings.part_of_full_amount}}€"
+                            [value]="bookingSettings.part_of_full_amount" [(ngModel)]="amount"
+                            (change)="selectPaymentAmount($event)"></ejs-radiobutton>
+                    </div>
+                    <div *ngIf="bookingSettings.full_amount" class="mt-2">
+                        <ejs-radiobutton name="amount"
+                            label="{{language.paymentFullAmount}} {{bookingSettings.full_amount}}€"
+                            [value]="bookingSettings.full_amount" [(ngModel)]="amount"
+                            (change)="selectPaymentAmount($event)"></ejs-radiobutton>
+                    </div>
+                </div>
+                <div *ngIf="stripeId" class="payment-info flex justify-space-between">
+                    <app-loader *ngIf="loader"></app-loader>
+                    <div *ngIf="!loader" class="column shipping">
+                        <stripe-card #stripeCard (tokenChange)="setStripeToken($event)" (catch)="onStripeError($event)"
+                            [options]="{hidePostalCode: true, style: { base: { fontSize: '18px' }}}"></stripe-card>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="select === 'in-clinic'" class="text-center">
+                <h5>{{language.paymentPayInClinicTitle}}</h5>
+                <h6>{{language.paymentPayInClinicText}}</h6>
+            </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-center">
+            <ejs-checkbox name="agree" [(ngModel)]="agree"></ejs-checkbox> <span
+                class="e-label terms">{{language.paymentAgreeCheckboxFirst}} <a href="https://officenode.com/terms"
+                    target="_blank">{{language.paymentAgreeCheckboxTerms}}</a>
+                {{language.paymentAgreeCheckboxSecond}} <a href="https://officenode.com/privacy-policy"
+                    target="_blank">{{language.paymentAgreeCheckboxPrivacyPolicy}}</a>
+                {{language.paymentAgreeCheckboxThree}}</span>
+        </div>
+    </div>
+</article>
+
+<div class="button-steps">
+    <button class="button button-secondary mr-2" (click)="goPrevious()">{{language.bookingPrevious}}</button>
+    <button *ngIf="select === 'online'" class="button button-primary mt-2"
+        (click)="payAndBooking()">{{language.paymentPayButton}}</button>
+    <button *ngIf="select === 'in-clinic'" class="button button-primary mt-2"
+        (click)="bookingWithoutPay()">{{language.paymentBookingWithoutPayButton}}</button>
+</div>
+
+<app-confirm-dialog #confirmDialogComponent (eventEmitter)="confirmAnswer($event)"
+    [header]="language.paymentQuestionHeader"
+    [content]="language.paymentQuestionContent.replace('{{amount}}', amount)" [yes]="language.paymentPayNow" [no]="language.paymentCancelPayment"></app-confirm-dialog>

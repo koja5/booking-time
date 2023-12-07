@@ -1,0 +1,42 @@
+<div class="text-center mb-4">
+    <h3>{{language.personalTitle}}</h3>
+    <h6>{{language.personalText}}</h6>
+</div>
+<form [formGroup]="data" class="row personal-info">
+    <!-- <div class="contact-info">
+        <ejs-textbox placeholder="Email *" cssClass="e-outline" class="contact-field" floatLabelType="Auto"
+            formControlName="email" (blur)="checkUser()"></ejs-textbox>
+        <app-checkmark *ngIf="checkmark" class="checkmark"></app-checkmark>
+        <div class="between_or text-center"><span>AND</span></div>
+        <ejs-textbox placeholder="Phone number *" cssClass="e-outline" class="contact-field" floatLabelType="Auto"
+            formControlName="phone" (blur)="checkUser()"></ejs-textbox>
+        <app-checkmark *ngIf="checkmark" class="checkmark"></app-checkmark>
+    </div> -->
+
+    <ejs-textbox placeholder="{{language.personalEmail}}" cssClass="e-outline" floatLabelType="Auto"
+        formControlName="email" (blur)="checkUser()"></ejs-textbox>
+    <app-checkmark *ngIf="checkmark" class="checkmark"></app-checkmark>
+
+    <ejs-textbox placeholder="{{language.personalPhone}}" cssClass="e-outline" floatLabelType="Auto"
+        formControlName="phone" (blur)="checkUser()"></ejs-textbox>
+    <app-checkmark *ngIf="checkmark" class="checkmark"></app-checkmark>
+
+    <ejs-textbox placeholder="{{language.personalFirstname}}" cssClass="e-outline" class="col-md-6"
+        floatLabelType="Auto" formControlName="firstname"></ejs-textbox>
+    <ejs-textbox placeholder="{{language.personalLastname}}" cssClass="e-outline" class="col-md-6" floatLabelType="Auto"
+        formControlName="lastname"></ejs-textbox>
+    <ejs-datepicker placeholder="{{language.personalBirthday}}" cssClass="e-outline" class="col-md-12"
+        floatLabelType="Auto" formControlName="birthday" format="dd.MM.yyyy"></ejs-datepicker>
+
+
+    <span class="e-error" *ngIf="!data.valid&&submit">
+        {{language.personalNeedToFillFields}}
+    </span>
+</form>
+
+<app-loader *ngIf="loader"></app-loader>
+
+<div class="button-steps">
+    <button class="button button-secondary mr-2" (click)="goPrevious()">{{language.bookingPrevious}}</button>
+    <button class="button button-primary" (click)="goNext()">{{language.bookingNext}}</button>
+</div>

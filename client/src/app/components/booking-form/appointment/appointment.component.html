@@ -1,0 +1,129 @@
+<div class="text-center mb-4">
+    <h3>{{language.appointmentTitle}}</h3>
+</div>
+
+<app-loader *ngIf="loader"></app-loader>
+
+<div *ngIf="!loader">
+    <div class="places m-4">
+        <h6 class="text-center mb-3">{{language.appointmentChooseLocation}}</h6>
+        <div class="text-center">
+            <button class="button button-secondary m-2 {{checkLocation(item) ? 'selected' : ''}}"
+                *ngFor="let item of locations" (click)="changeLocation(item); resetTime()">{{item.storename}}</button>
+        </div>
+    </div>
+
+
+    <h6 class="text-center" *ngIf="allAppointments && allAppointments.length !== 0">{{language.appointmentText}}</h6>
+
+    <div *ngIf="design == 1" id="calendarTmpl" type="text/x-jsrender">
+
+        <div class="current-week">
+            <span><i class="fa fa-calendar"></i> {{month}} </span>
+            <div class="calendar-nav d-flex">
+                <button type="button" class="prev d-grid" (click)="goPreviousWeek()"><i class="fa fa-arrow-left"></i>
+                    <span>{{language.appointmentPreviousWeek}}</span></button>
+                <button type="button" class="next d-grid" (click)="goNextWeek()"><i class="fa fa-arrow-right"></i>
+                    <span>{{language.appointmentNextWeek}}</span></button>
+            </div>
+        </div>
+
+        <div class="calendar-wrapper">
+            <div class="calendar-week">
+                <ul>
+                    <li *ngFor="let item of days" class="{{item.today ? 'today' : ''}}">{{item.name}},
+                        {{item.day}}</li>
+                </ul>
+            </div>
+
+            <div class="calendar-hours">
+                <ul>
+                    <li>
+                        <ul>
+                            <li>08:00</li>
+                            <li>08:15</li>
+                            <li>08:30</li>
+                            <li>08:45</li>
+                            <li>09:00</li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <ul>
+                            <li>08:00</li>
+                            <li>08:15</li>
+                            <li>08:30</li>
+                            <li class="empty"></li>
+                            <li>09:00</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul>
+                            <li class="empty"></li>
+                            <li class="empty"></li>
+                            <li class="empty"></li>
+                            <li class="empty"></li>
+                            <li class="empty"></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <ul>
+                            <li>08:00</li>
+                            <li>08:15</li>
+                            <li class="empty"></li>
+                            <li class="empty"></li>
+                            <li class="empty"></li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <ul>
+                            <li class="empty"></li>
+                            <li>08:15</li>
+                            <li>08:30</li>
+                            <li>08:45</li>
+                            <li>09:00</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="design === 2">
+
+        <div *ngFor="let item of days; let k = index">
+            <div class="calendar2-container row"
+                *ngIf="allAppointments[item.index] && allAppointments[item.index].length">
+                <div class="{{item.today ? 'today' : ''}} col-md-2 col-xs-12 calendar2-days">
+                    {{item.name}},
+                    {{item.day}}.{{item.month}}.{{item.year}}
+                </div>
+                <div *ngIf="!item.appointment || item.appointment.length === 0"
+                    class="calendar2-times col-md-10 col-xs-12 row">
+                    <span class="no-free-time">{{language.appointmentNoFreeTimeReservation}}</span>
+
+                </div>
+                <div *ngIf="allAppointments[item.index] && allAppointments[item.index].length > 0;"
+                    class="calendar2-times col-md-10 col-xs-12 row">
+                    <span *ngFor="let appointment of allAppointments[item.index].sort(); let i = index"
+                        class="col-lg-1 col-md-2 col-sm-2 col-5 {{checkTime(k, i) ? 'selected' : ''}}"
+                        (click)="selectTime(item.date, appointment.time, appointment.user_id, k, i)">
+                        {{appointment.time | date:
+                        'HH:mm'}}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!allTerminesForStore" class="text-center">
+        <img src="../../../../assets/images/icons/booked.png" class="no-termins">
+        <h3 class="mt-4">{{language.appointmentNoFreeTermineForThisLocation}}</h3>
+    </div>
+
+    <div class="button-steps text-end">
+        <button class="button button-primary" (click)="goNext()">{{language.bookingNext}}</button>
+    </div>
+</div>

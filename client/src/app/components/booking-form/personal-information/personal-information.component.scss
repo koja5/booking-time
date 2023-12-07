@@ -1,0 +1,43 @@
+@media (min-width: 992px) {
+  .personal-info {
+    width: 80%;
+    margin: auto;
+  }
+
+  .contact-info {
+    justify-content: space-between;
+    display: flex;
+  }
+}
+
+@media (max-width: 768px) {
+  .between_or {
+    padding-top: 0px !important;
+    padding-bottom: 10px;
+  }
+}
+
+.contact-field {
+  width: 45%;
+}
+
+.between_or {
+  padding-top: 6px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.e-error {
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.checkmark {
+  margin-left: -31px;
+  margin-top: 11px;
+  overflow: hidden;
+  color: green;
+  width: 17px;
+  height: 17px;
+}

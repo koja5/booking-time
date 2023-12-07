@@ -1,0 +1,10 @@
+<ejs-dialog #confirmDialogComponent content='{{content}}' header='{{header}}' width='450px' [showCloseIcon]='true'
+    [visible]="false" [position]="{Y: 100}" isModal="true">
+    <ng-template #footerTemplate>
+        <div class="button-steps">
+            <button class="button button-secondary mr-2"
+                (click)="eventClickEmitter(false)">{{no}}</button>
+            <button class="button button-primary" (click)="eventClickEmitter(true)">{{yes}}</button>
+        </div>
+    </ng-template>
+</ejs-dialog>

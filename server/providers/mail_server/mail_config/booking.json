@@ -1,0 +1,14 @@
+{
+    "bannerFirstText": "DANKE",
+    "bannerSecondText": "für deine Bestellung!",
+    "subject": "Behandlung erfolgreich gebucht!",
+    "title": "Behandlung erfolgreich gebucht!",
+    "greeting": "Hallo {firstname}",
+    "text": "Sie haben die Behandlung erfolgreich gebucht. Nachfolgend finden Sie die gebuchten Informationen.",
+    "buttonText": "E-Mail bestätigen und Konto aktivieren",
+    "signatureGreeting": "A. Kaar Kg",
+    "signatureAddress": "Haselgrabenweg 3",
+    "signatureZipAndCity": "4040 Linz",
+    "signatureEmail": "office@kaarkg.at",
+    "signatureTelephone": "+43 732 946815"
+}

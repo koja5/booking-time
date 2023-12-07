@@ -1,0 +1,42 @@
+<div *ngIf="step === 2" class="appointment-popup appointment-popup2 additional-info-container mb-4">
+    <div id="calendar" class="appointment-calendar appointment-calendar2 text-center">
+        <h4 class="mb-2">{{language.additionalAmountForPaymentTitle}}</h4>
+        <div class="payment" *ngIf="amount">
+            <!-- <span class="fa fa-money"></span>
+            <span class="description">{{language.additionalPaymentAmount}}</span> -->
+            <h1 class="font-weight-bold">{{amount}}€</h1>
+            <p class="description">{{language.additionalAmountDescription}}</p>
+        </div>
+        <div class="payment" *ngIf="amount === null">
+            <h6>{{language.additionalAmountPayInClinicDescription}}</h6>
+        </div>
+    </div>
+</div>
+
+<div class="appointment-popup appointment-popup2 additional-info-container">
+    <div id="calendar" class="appointment-calendar appointment-calendar2 text-center">
+        <h4 class="mb-4">{{language.additionalBookingTitle}}</h4>
+        <div class="time">
+            <span class="fa fa-calendar-check-o"></span>
+            <span class="description">{{language.additionalSelectedDate}}</span>
+            <div>
+                <p>{{data.date | date: 'dd.MM.yyyy'}}</p>
+                <p>{{data.date | date: 'HH:mm'}} - {{data.end | date: 'HH:mm'}}</p>
+            </div>
+        </div>
+        <div class="time">
+            <span class="fa fa-map-marker"></span>
+            <span class="description">{{language.additionalSelectedLocation}}</span>
+            <div>
+                <p>{{data.location.storename}}</p>
+                <div class="d-flex">
+                    <p>{{data.location.street}} {{data.location.zipcode}} </p>
+                    <p *ngIf="data.location.street && data.location.zipcode">,</p>
+                    <p>{{data.location.place}}</p>
+                </div>
+                <p>{{data.location.mobile ? data.location.mobile : data.location.telephone}} </p>
+                <p>{{data.location.email }} </p>
+            </div>
+        </div>
+    </div>
+</div>

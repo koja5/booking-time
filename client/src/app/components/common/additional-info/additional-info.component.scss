@@ -1,0 +1,41 @@
+@media (max-width: 992px) {
+  .appointment-popup2 {
+    margin-top: 15px;
+  }
+}
+
+.appointment-popup2 {
+  height: auto !important;
+}
+
+.appointment-calendar2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.appointment-calendar2 span {
+  color: var(--primary);
+  font-size: 40px;
+}
+
+.appointment-calendar2 p {
+  margin: 0px;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.time {
+  margin-bottom: 15px;
+}
+
+.time .description, .payment .description {
+    font-size: 12px;
+    display: block;
+}
+
+.description {
+  font-size: 11px !important;
+  color: var(--gray);
+}

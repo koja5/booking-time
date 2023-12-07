@@ -1,0 +1,60 @@
+<div *ngIf="language && bookingSettings &&bookingSettings.active">
+    <div class="row justify-content-center pt-0 pb-4 mb-2" id="wizardRow">
+        <div class="col-md-12 text-center">
+            <div class="wizard-form">
+                <ul id="progressBar" class="progressbar px-lg-5 px-0">
+                    <li id="progressList-1"
+                        class="d-inline-block fw-bold w-25 position-relative text-center float-start progressbar-list {{currentStep >= 0 ? 'active' : ''}}">
+                        {{language.stepOne}}</li>
+                    <li id="progressList-2"
+                        class="d-inline-block fw-bold w-25 position-relative text-center float-start progressbar-list {{currentStep > 0 ? 'active' : ''}}">
+                        {{language.stepTwo}}</li>
+                    <li id="progressList-3"
+                        class="d-inline-block fw-bold w-25 position-relative text-center float-start progressbar-list {{currentStep > 1 ? 'active' : ''}}">
+                        {{language.stepThree}}</li>
+                    <li id="progressList-4"
+                        class="d-inline-block fw-bold w-25 position-relative text-center float-start progressbar-list {{currentStep > 2 ? 'active' : ''}}">
+                        {{language.stepFour}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+
+        <div
+            class="appointment-popup col-xs-12 {{currentStep > 0 && currentStep != 3 ? 'col-lg-8 col-md-12' : 'col-md-12'}}">
+            <div id="calendar" class="appointment-calendar">
+                <app-appointment *ngIf="currentStep === 0" (changeStep)="changeStep($event)"></app-appointment>
+                <app-personal-information *ngIf="currentStep === 1"
+                    (changeStep)="changeStep($event)"></app-personal-information>
+                <app-select-payment *ngIf="currentStep === 2" (changeStep)="changeStep($event)"></app-select-payment>
+                <app-booking-done *ngIf="currentStep === 3"></app-booking-done>
+
+            </div>
+        </div>
+
+        <div *ngIf="currentStep > 0 && currentStep != 3" style="width: 20px;"></div>
+
+        <app-additional-info *ngIf="currentStep > 0 && currentStep != 3" class="col-lg-3 col-md-12 col-xs-12 p-0"
+            [step]="currentStep"></app-additional-info>
+
+    </div>
+</div>
+
+<div class="text-center" *ngIf="language && (bookingSettings && !bookingSettings.active)">
+    <img class="not-allow" src="../../../assets/images/icons/not-allow.png">
+    <div class="mt-4">
+        <h2>{{language.onlineBookingIsNotAvailableTitle}}</h2>
+        <h4>{{language.onlineBookingIsNotAvailableText}}</h4>
+    </div>
+</div>
+
+<div *ngIf="!bookingSettings">
+    <app-loader></app-loader>
+</div>
+
+<!--QUESTION FOR NEW APPOINTMENT TERMINE-->
+<app-confirm-dialog #dialogForNewTermine *ngIf="language" (eventEmitter)="confirmAnswer($event)"
+    [header]="language.appointmentCheckNewTimeTitle"
+    [content]="language.appointmentCheckNewTimeText" [yes]="language.appointmentYes" [no]="language.appointmentNo"></app-confirm-dialog>
