@@ -350,6 +350,7 @@ export class AppointmentComponent {
     date: any,
     time: any,
     user_id: number,
+    user_email: string,
     indexDay: number,
     indexTime: number
   ) {
@@ -373,6 +374,7 @@ export class AppointmentComponent {
     });
     this.helpService.setSessionStorage('calendar', {
       user_id: user_id,
+      user_email: user_email,
       date: date,
       end: moment(date)
         .add(this.selectedLocation.time_therapy, 'minutes')
@@ -401,6 +403,7 @@ export class AppointmentComponent {
     return {
       validate_from: moment(data.validate_from),
       user_id: data.user_id,
+      user_email: data.email,
       time: time,
     };
   }

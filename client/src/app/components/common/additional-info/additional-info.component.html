@@ -30,9 +30,9 @@
             <div>
                 <p>{{data.location.storename}}</p>
                 <div class="d-flex">
-                    <p>{{data.location.street}} {{data.location.zipcode}} </p>
+                    <p>{{data.location.street}}</p>
                     <p *ngIf="data.location.street && data.location.zipcode">,</p>
-                    <p>{{data.location.place}}</p>
+                    <p>{{data.location.zipcode}} {{data.location.place}}</p>
                 </div>
                 <p>{{data.location.mobile ? data.location.mobile : data.location.telephone}} </p>
                 <p>{{data.location.email }} </p>

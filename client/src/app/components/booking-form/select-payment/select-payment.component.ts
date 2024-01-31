@@ -170,6 +170,8 @@ export class SelectPaymentComponent {
       .subscribe((data: any) => {
         if (data && data.length) {
           this.stripeId = data[0].stripe_id;
+        } else {
+          this.select = 'in-clinic';
         }
       });
   }
@@ -204,6 +206,10 @@ export class SelectPaymentComponent {
       this.amount = this.bookingSettings.full_amount;
     } else {
       this.amount = this.bookingSettings.part_of_full_amount;
+    }
+
+    if (!this.amount) {
+      this.select = 'in-clinic';
     }
 
     const calendar = JSON.parse(this.helpService.getSessionStorage('calendar'));

@@ -2,6 +2,11 @@
     <h3>{{language.personalTitle}}</h3>
     <h6>{{language.personalText}}</h6>
 </div>
+
+<div class="row personal-info">
+    <ejs-textbox placeholder="{{language.fillEmailOrPhone}}" cssClass="e-outline" floatLabelType="Auto"
+        [(ngModel)]="checkField" (blur)="checkUser()"></ejs-textbox>
+</div>
 <form [formGroup]="data" class="row personal-info">
     <!-- <div class="contact-info">
         <ejs-textbox placeholder="Email *" cssClass="e-outline" class="contact-field" floatLabelType="Auto"
@@ -13,21 +18,22 @@
         <app-checkmark *ngIf="checkmark" class="checkmark"></app-checkmark>
     </div> -->
 
-    <ejs-textbox placeholder="{{language.personalEmail}}" cssClass="e-outline" floatLabelType="Auto"
-        formControlName="email" (blur)="checkUser()"></ejs-textbox>
+    <ejs-textbox *ngIf="requiredEmptyField === 'email'" placeholder="{{language.personalEmail}}" cssClass="e-outline"
+        floatLabelType="Auto" formControlName="email" (blur)="saveInLocalStorage()"></ejs-textbox>
     <app-checkmark *ngIf="checkmark" class="checkmark"></app-checkmark>
 
-    <ejs-textbox placeholder="{{language.personalPhone}}" cssClass="e-outline" floatLabelType="Auto"
-        formControlName="phone" (blur)="checkUser()"></ejs-textbox>
+    <ejs-textbox *ngIf="requiredEmptyField === 'mobile'" placeholder="{{language.personalPhone}}" cssClass="e-outline"
+        floatLabelType="Auto" formControlName="phone" (blur)="saveInLocalStorage()"></ejs-textbox>
     <app-checkmark *ngIf="checkmark" class="checkmark"></app-checkmark>
 
-    <ejs-textbox placeholder="{{language.personalFirstname}}" cssClass="e-outline" class="col-md-6"
-        floatLabelType="Auto" formControlName="firstname"></ejs-textbox>
-    <ejs-textbox placeholder="{{language.personalLastname}}" cssClass="e-outline" class="col-md-6" floatLabelType="Auto"
-        formControlName="lastname"></ejs-textbox>
-    <ejs-datepicker placeholder="{{language.personalBirthday}}" cssClass="e-outline" class="col-md-12"
-        floatLabelType="Auto" formControlName="birthday" format="dd.MM.yyyy"></ejs-datepicker>
-
+    <div *ngIf="isNew">
+        <ejs-textbox placeholder="{{language.personalFirstname}}" cssClass="e-outline" class="col-md-6"
+            floatLabelType="Auto" formControlName="firstname" (blur)="saveInLocalStorage()"></ejs-textbox>
+        <ejs-textbox placeholder="{{language.personalLastname}}" cssClass="e-outline" class="col-md-6"
+            floatLabelType="Auto" formControlName="lastname" (blur)="saveInLocalStorage()"></ejs-textbox>
+        <ejs-datepicker placeholder="{{language.personalBirthday}}" cssClass="e-outline" class="col-md-12"
+            floatLabelType="Auto" formControlName="birthday" format="dd.MM.yyyy" (blur)="saveInLocalStorage()"></ejs-datepicker>
+    </div>
 
     <span class="e-error" *ngIf="!data.valid&&submit">
         {{language.personalNeedToFillFields}}

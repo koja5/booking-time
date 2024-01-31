@@ -97,7 +97,7 @@
             <div class="calendar2-container row"
                 *ngIf="allAppointments[item.index] && allAppointments[item.index].length">
                 <div class="{{item.today ? 'today' : ''}} col-md-2 col-xs-12 calendar2-days">
-                    {{item.name}},
+                    {{item.name}}
                     {{item.day}}.{{item.month}}.{{item.year}}
                 </div>
                 <div *ngIf="!item.appointment || item.appointment.length === 0"
@@ -109,7 +109,7 @@
                     class="calendar2-times col-md-10 col-xs-12 row">
                     <span *ngFor="let appointment of allAppointments[item.index].sort(); let i = index"
                         class="col-lg-1 col-md-2 col-sm-2 col-5 {{checkTime(k, i) ? 'selected' : ''}}"
-                        (click)="selectTime(item.date, appointment.time, appointment.user_id, k, i)">
+                        (click)="selectTime(item.date, appointment.time, appointment.user_id, appointment.user_email, k, i)">
                         {{appointment.time | date:
                         'HH:mm'}}
                     </span>

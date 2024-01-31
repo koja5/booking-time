@@ -56,7 +56,7 @@ router.get("/checkReservedAppointments/:storeId", async (req, res, next) => {
   }
 });
 
-router.get("/checkUser/:value", async (req, res, next) => {
+router.get("/checkUser/:value/:admin", async (req, res, next) => {
   try {
     connection.getConnection(function (err, conn) {
       if (err) {
@@ -64,8 +64,13 @@ router.get("/checkUser/:value", async (req, res, next) => {
         res.json(err);
       } else {
         conn.query(
-          "select * from customers where email = ? or mobile = ? or telephone = ?",
-          [req.params.value, req.params.value, req.params.value],
+          "select * from customers where (email = ? or mobile = ? or telephone = ?) and sha1(storeId) = ?",
+          [
+            req.params.value,
+            req.params.value,
+            req.params.value,
+            req.params.admin,
+          ],
           function (err, rows, fields) {
             conn.release();
             if (err) {
@@ -275,37 +280,50 @@ router.post("/createAppointment", function (req, res) {
       res.json(err);
     }
 
-    var data = {
-      creator_id: req.body.calendar.user_id,
-      customer_id: req.body.personal.id,
-      title: req.body.personal.lastname + " " + req.body.personal.firstname,
-      colorTask: 12,
-      start: req.body.calendar.date,
-      end: req.body.calendar.end,
-      telephone: req.body.personal.phone,
-      therapy_id: 0,
-      superadmin: 4,
-      confirm: 1,
-      online: 1,
-      paid: req.body.calendar.token ? req.body.calendar.token.created : 0,
-      amount: req.body.calendar.amount,
-    };
-    if (req.body.calendar.location.id !== undefined) {
-      data["storeId"] = req.body.calendar.location.id;
-    }
-    conn.query("insert into tasks SET ?", data, function (err, rows) {
-      conn.release();
-      if (!err) {
-        res.json(true);
-      } else {
-        logger.log("error", err.sql + ". " + err.sqlMessage);
-        res.json(false);
+    conn.query(
+      "select * from users_superadmin where sha1(id) = ?",
+      [req.body.admin],
+      function (err, rows) {
+        if (!err) {
+          var data = {
+            creator_id: req.body.calendar.user_id,
+            customer_id: req.body.personal.id,
+            title:
+              req.body.personal.lastname + " " + req.body.personal.firstname,
+            colorTask: req.body.categorie ? req.body.categorie : 0,
+            start: req.body.calendar.date,
+            end: req.body.calendar.end,
+            telephone: req.body.personal.phone,
+            therapy_id: 0,
+            superadmin: rows[0].id,
+            confirm: 1,
+            online: 1,
+            paid: req.body.calendar.token ? req.body.calendar.token.created : 0,
+            amount: req.body.calendar.amount,
+          };
+          if (req.body.calendar.location.id !== undefined) {
+            data["storeId"] = req.body.calendar.location.id;
+          }
+          conn.query("insert into tasks SET ?", data, function (err, rows) {
+            conn.release();
+            if (!err) {
+              res.json(true);
+            } else {
+              logger.log("error", err.sql + ". " + err.sqlMessage);
+              res.json(false);
+            }
+          });
+        } else {
+          conn.release();
+          logger.log("error", err.sql + ". " + err.sqlMessage);
+          res.json(false);
+        }
       }
-    });
+    );
   });
 });
 
-router.post("/createPatient", function (req, res) {
+router.post("/createCustomer", function (req, res) {
   connection.getConnection(function (err, conn) {
     if (err) {
       logger.log("error", err.sql + ". " + err.sqlMessage);
@@ -317,15 +335,59 @@ router.post("/createPatient", function (req, res) {
     (req.body.shortname = req.body.lastname + " " + req.body.firstname),
       (req.body.password = sha1(generateRandomPassword()));
 
-    conn.query("insert into customers SET ?", [req.body], function (err, rows) {
-      conn.release();
-      if (!err) {
-        res.json(rows.insertId);
-      } else {
-        logger.log("error", err.sql + ". " + err.sqlMessage);
-        res.json(false);
+    conn.query(
+      "select * from users_superadmin where sha1(id) = ?",
+      [req.body.storeId],
+      function (err, rows) {
+        if (!err) {
+          req.body.storeId = rows[0].id;
+          conn.query(
+            "insert into customers SET ?",
+            [req.body],
+            function (err, rows) {
+              conn.release();
+              if (!err) {
+                res.json(rows.insertId);
+              } else {
+                logger.log("error", err.sql + ". " + err.sqlMessage);
+                res.json(false);
+              }
+            }
+          );
+        } else {
+          conn.release();
+          logger.log("error", err.sql + ". " + err.sqlMessage);
+          res.json(false);
+        }
       }
-    });
+    );
+  });
+});
+
+router.post("/updateCustomer", function (req, res) {
+  connection.getConnection(function (err, conn) {
+    if (err) {
+      logger.log("error", err.sql + ". " + err.sqlMessage);
+      res.json(err);
+    }
+
+    req.body.mobile = copyValue(req.body.phone);
+    delete req.body.phone;
+    req.body.shortname = req.body.lastname + " " + req.body.firstname;
+
+    conn.query(
+      "update customers SET ? where id = ?",
+      [req.body, req.body.id],
+      function (err, rows) {
+        conn.release();
+        if (!err) {
+          res.json(true);
+        } else {
+          logger.log("error", err.sql + ". " + err.sqlMessage);
+          res.json(false);
+        }
+      }
+    );
   });
 });
 

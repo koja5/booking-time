@@ -18,7 +18,7 @@
         <div class="card-body">
             <div class="payment-type">
                 <div class="types flex justify-content-around">
-                    <div *ngIf="stripeId" class="type {{select === 'online' ? 'selected' : ''}}"
+                    <div *ngIf="stripeId&&bookingSettings&&amount" class="type {{select === 'online' ? 'selected' : ''}}"
                         (click)="select = 'online'; payOnlineAdditionalInfo()">
                         <div class="logo">
                             <i class="far fa-credit-card"></i>
@@ -40,7 +40,8 @@
                 </div>
             </div>
 
-            <div *ngIf="select === 'online'&&stripeId">
+            <div
+                *ngIf="select === 'online'&&stripeId">
                 <h5 class="text-center">{{language.paymentFillCreditCardInfo}}</h5>
 
                 <div *ngIf="bookingSettings&&amount" class="mt-4">
@@ -90,5 +91,5 @@
 </div>
 
 <app-confirm-dialog #confirmDialogComponent (eventEmitter)="confirmAnswer($event)"
-    [header]="language.paymentQuestionHeader"
-    [content]="language.paymentQuestionContent.replace('{{amount}}', amount)" [yes]="language.paymentPayNow" [no]="language.paymentCancelPayment"></app-confirm-dialog>
+    [header]="language.paymentQuestionHeader" [content]="language.paymentQuestionContent.replace('{{amount}}', amount)"
+    [yes]="language.paymentPayNow" [no]="language.paymentCancelPayment"></app-confirm-dialog>
