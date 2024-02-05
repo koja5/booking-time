@@ -63,12 +63,16 @@ router.get("/checkUser/:value/:admin", async (req, res, next) => {
         logger.log("error", err.sql + ". " + err.sqlMessage);
         res.json(err);
       } else {
+        console.log(req.params.value);
+        console.log(handleTelephoneNumber(req.params.value));
         conn.query(
-          "select * from customers where (email = ? or mobile = ? or telephone = ?) and sha1(storeId) = ?",
+          "select * from customers where (email = ? or mobile = ? or telephone = ? or mobile = ? or telephone = ?) and sha1(storeId) = ?",
           [
             req.params.value,
             req.params.value,
             req.params.value,
+            handleTelephoneNumber(req.params.value),
+            handleTelephoneNumber(req.params.value),
             req.params.admin,
           ],
           function (err, rows, fields) {
@@ -425,4 +429,18 @@ function generateRandomPassword() {
 
 function copyValue(value) {
   return JSON.parse(JSON.stringify(value));
+}
+
+function handleTelephoneNumber(telephone) {
+  if (telephone.startsWith("+43")) {
+    return telephone.replace("+43", "0");
+  } else if (telephone.startsWith("0")) {
+    return telephone.replace("0", "+43");
+  }
+}
+
+function addAreaCodeForTelephoneNumber(telephone) {
+  if (telephone.startsWith("0")) {
+    return telephone.replace("0", "+43");
+  }
 }

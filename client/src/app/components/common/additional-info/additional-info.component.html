@@ -31,7 +31,7 @@
                 <p>{{data.location.storename}}</p>
                 <div class="d-flex">
                     <p>{{data.location.street}}</p>
-                    <p *ngIf="data.location.street && data.location.zipcode">,</p>
+                    <p *ngIf="data.location.street && data.location.zipcode">,&nbsp;</p>
                     <p>{{data.location.zipcode}} {{data.location.place}}</p>
                 </div>
                 <p>{{data.location.mobile ? data.location.mobile : data.location.telephone}} </p>

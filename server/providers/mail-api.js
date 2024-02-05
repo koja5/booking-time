@@ -24,6 +24,8 @@ router.post("/sendBookingInfo", function (req, res, next) {
   body["birthday"] = moment(req.body.personal.birthday).format("DD.MM.yyyy");
   body["email"] = req.body.personal.email;
   body["phone"] = req.body.personal.phone;
+  body["client"] =
+    req.body.personal.firstname + " " + req.body.personal.lastname;
   body["date"] = moment(req.body.calendar.date).format("DD.MM.yyyy");
   body["time"] = moment(req.body.calendar.date).format("HH:mm");
   body["storename"] = req.body.calendar.storename;
@@ -60,6 +62,8 @@ router.post("/sendBookingInfoToEmployee", function (req, res, next) {
   body["birthday"] = moment(req.body.personal.birthday).format("DD.MM.yyyy");
   body["email"] = req.body.calendar.user_email;
   body["phone"] = req.body.personal.phone;
+  body["client"] =
+    req.body.personal.firstname + " " + req.body.personal.lastname;
   body["date"] = moment(req.body.calendar.date).format("DD.MM.yyyy");
   body["time"] = moment(req.body.calendar.date).format("HH:mm");
   body["storename"] = req.body.calendar.storename;

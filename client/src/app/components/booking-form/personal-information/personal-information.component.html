@@ -20,11 +20,11 @@
 
     <ejs-textbox *ngIf="requiredEmptyField === 'email'" placeholder="{{language.personalEmail}}" cssClass="e-outline"
         floatLabelType="Auto" formControlName="email" (blur)="saveInLocalStorage()"></ejs-textbox>
-    <app-checkmark *ngIf="checkmark" class="checkmark"></app-checkmark>
+    <!-- <app-checkmark *ngIf="checkmark" class="checkmark"></app-checkmark> -->
 
     <ejs-textbox *ngIf="requiredEmptyField === 'mobile'" placeholder="{{language.personalPhone}}" cssClass="e-outline"
         floatLabelType="Auto" formControlName="phone" (blur)="saveInLocalStorage()"></ejs-textbox>
-    <app-checkmark *ngIf="checkmark" class="checkmark"></app-checkmark>
+    <!-- <app-checkmark *ngIf="checkmark" class="checkmark"></app-checkmark> -->
 
     <div *ngIf="isNew">
         <ejs-textbox placeholder="{{language.personalFirstname}}" cssClass="e-outline" class="col-md-6"
