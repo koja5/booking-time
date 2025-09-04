@@ -356,7 +356,7 @@ export class AppointmentComponent {
   ) {
     this.selectedTime = indexDay + '' + indexTime;
     this.selectedRealTime = moment(date).set({
-      h: time.hours() - 1,
+      h: time.hours() - 2,
       m: time.minutes(),
       s: time.seconds(),
       ms: time.milliseconds(),

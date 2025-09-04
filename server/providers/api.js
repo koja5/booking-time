@@ -255,6 +255,7 @@ router.get(
           logger.log("error", err.sql + ". " + err.sqlMessage);
           res.json(err);
         } else {
+          console.log(req.params.reservationTime);
           conn.query(
             "select * from tasks where start like ? and storeId = ? and creator_id = ?",
             [req.params.reservationTime, req.params.store, req.params.userId],
